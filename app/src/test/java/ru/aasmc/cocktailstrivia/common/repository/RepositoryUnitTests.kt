@@ -42,6 +42,26 @@ class RepositoryUnitTests {
         verify(sharedPreferences).getInt(any(), any())
     }
 
+    @Test
+    fun saveScore_shouldNotSaveToSharedPreferencesIfLower() {
+        val previouslySavedScore = 100
+        val newHighScore = 10
+        val spyRepository = spy(repository)
+
+        // here we need to spy on a real object to track what it is doing
+        // with spies, we use the following call chain:
+        // doReturn -> whenever -> method
+        doReturn(previouslySavedScore)
+            .whenever(spyRepository)
+            .getHighScore()
+
+        spyRepository.saveHighScore(newHighScore)
+
+        verify(sharedPreferencesEditor, never())
+            .putInt(any(), eq(newHighScore))
+
+    }
+
 }
 
 

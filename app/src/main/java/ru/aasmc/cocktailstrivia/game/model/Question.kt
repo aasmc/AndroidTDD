@@ -1,7 +1,10 @@
 package ru.aasmc.cocktailstrivia.game.model
 
-class Question(val correctOption: String,
-               val incorrectOption: String) {
+class Question(
+    val correctOption: String,
+    val incorrectOption: String,
+    val imageUrl: String? = null
+) {
     var answeredOption: String? = null
         private set
 
@@ -17,6 +20,6 @@ class Question(val correctOption: String,
         return isAnsweredCorrectly
     }
 
-    fun getOptions(sort: (List<String>) -> List<String> = { it.shuffled() })
-            = sort(listOf(correctOption, incorrectOption))
+    fun getOptions(sort: (List<String>) -> List<String> = { it.shuffled() }) =
+        sort(listOf(correctOption, incorrectOption))
 }
