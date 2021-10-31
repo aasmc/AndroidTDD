@@ -18,6 +18,7 @@ class CocktailsGameViewModel(
     private val errorLiveData = MutableLiveData<Boolean>()
     private val questionLiveData = MutableLiveData<Question>()
     private val scoreLiveData = MutableLiveData<Score>()
+    private val gameOverLiveData = MutableLiveData<Boolean>()
 
     private var game: Game? = null
 
@@ -25,10 +26,12 @@ class CocktailsGameViewModel(
     fun getError(): LiveData<Boolean> = errorLiveData
     fun getQuestion(): LiveData<Question> = questionLiveData
     fun getScore(): LiveData<Score> = scoreLiveData
+    fun getGameOver(): LiveData<Boolean> = gameOverLiveData
 
     fun initGame() {
         loadingLiveData.value = true
         errorLiveData.value = false
+        gameOverLiveData.value = false
         factory.buildGame(object : CocktailsGameFactory.Callback {
             override fun onSuccess(game: Game) {
                 loadingLiveData.value = false
@@ -57,6 +60,7 @@ class CocktailsGameViewModel(
             repository.saveHighScore(it.score.highest)
             scoreLiveData.value = it.score
             questionLiveData.value = question
+            gameOverLiveData.value = it.isOver
         }
     }
 }
