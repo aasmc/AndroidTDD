@@ -1,21 +1,10 @@
 package ru.aasmc.cocktailstrivia.game.model
 
-class Game(private val questions: List<Question>,
-           highest: Int = 0) {
-    var currentScore = 0
-        private set
-
-    var highestScore = highest
-        private set
-
+class Game(
+    private val questions: List<Question>,
+    val score: Score = Score(0)
+) {
     private var questionIndex = -1
-
-    fun incrementScore() {
-        currentScore++
-        if (currentScore > highestScore) {
-            highestScore = currentScore
-        }
-    }
 
     fun nextQuestion(): Question? {
         if (questionIndex + 1 < questions.size) {
@@ -23,6 +12,13 @@ class Game(private val questions: List<Question>,
             return questions[questionIndex]
         }
         return null
+    }
+
+    fun answer(question: Question, option: String) {
+        val result = question.answer(option)
+        if (result) {
+            score.increment()
+        }
     }
 
 }
