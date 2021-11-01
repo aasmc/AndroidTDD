@@ -11,4 +11,6 @@
   <string name="game_score">Score: %1$d</string>
   <string name="game_highscore">Highscore: %1$d</string>
   <string name="game_question_title">What is the name of this cocktail?</string>
+  <string name="game_over">Game Over</string>
+  <string name="game_over_restart_default_text">Restart</string>
 </resources>
